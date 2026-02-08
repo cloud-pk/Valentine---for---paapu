@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Paapuuuu ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .screen {
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .screen.show {
+    display: flex;
+  }
+
+  .card {
+    background: white;
+    width: 330px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .emoji { font-size: 2.8rem; }
+  .day { font-size: 1.4rem; font-weight: bold; margin-top: 5px; }
+  .message { margin-top: 12px; color: #555; min-height: 70px; }
+
+  button {
+    margin-top: 25px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .next {
+    background: #ff4d6d;
+    color: white;
+  }
+
+  .buttons {
+    margin-top: 30px;
+    position: relative;
+  }
+
+  #yesBtn {
+    background: #ff4d6d;
+    color: white;
+  }
+
+  #noBtn {
+    background: #ddd;
+    position: absolute;
+  }
+
+  #noMsg {
+    display: none;
+    margin-top: 80px;
+    font-size: 0.95rem;
+  }
+
+  .success {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+  }
+
+  .party {
+    font-size: 3rem;
+    animation: pop 1s infinite alternate;
+  }
+
+  @keyframes pop {
+    from { transform: scale(1); }
+    to { transform: scale(1.3); }
+  }
+
+  .heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 24px;
+    animation: float 4s linear forwards;
+  }
+
+  @keyframes float {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ROSE DAY -->
+<div class="screen show" id="screen0">
+  <div class="card">
+    <div class="emoji">🌹</div>
+    <div class="day">Rose Day</div>
+    <div class="message" data-text="Paapuuu, rossu rossu rossu azhagana rossu nee."></div>
+    <button class="next" onclick="nextScreen()">Next 💌</button>
+  </div>
+</div>
+
+<!-- PROPOSE DAY -->
+<div class="screen" id="screen1">
+  <div class="card">
+    <div class="emoji">💍</div>
+    <div class="day">Propose Day</div>
+    <div class="message" data-text="Pattuu, pisu pisu pisu enakethe pisu nee."></div>
+    <button class="next" onclick="nextScreen()">Next 💌</button>
+  </div>
+</div>
+
+<!-- CHOCOLATE DAY -->
+<div class="screen" id="screen2">
+  <div class="card">
+    <div class="emoji">🍫</div>
+    <div class="day">Chocolate Day</div>
+    <div class="message" data-text="en Chelloww, you're my katti vellooow."></div>
+    <button class="next" onclick="nextScreen()">Next 💌</button>
+  </div>
+</div>
+
+<!-- TEDDY DAY -->
+<div class="screen" id="screen3">
+  <div class="card">
+    <div class="emoji">🧸</div>
+    <div class="day">Teddy Day</div>
+    <div class="message" data-text="Kozhakatte, en uyir thotte; potu vandhiye vella satte."></div>
+    <button class="next" onclick="nextScreen()">Next 💌</button>
+  </div>
+</div>
+
+<!-- PROMISE DAY -->
+<div class="screen" id="screen4">
+  <div class="card">
+    <div class="emoji">🤝</div>
+    <div class="day">Promise Day</div>
+    <div class="message" data-text="en thangamee, I promise to choose you every single day."></div>
+    <button class="next" onclick="goValentine()">One last thing ❤️</button>
+  </div>
+</div>
+
+<!-- VALENTINE -->
+<div class="screen" id="valentine">
+  <h1>kongu pengu, will you be my Valentine? ❤️</h1>
+  <div class="buttons">
+    <button id="yesBtn">YES 💘</button>
+    <button id="noBtn">NO 🙃</button>
+  </div>
+  <p id="noMsg">That’s not an option 🔪😄</p>
+</div>
+
+<!-- SUCCESS -->
+<div class="screen success" id="success">
+  <div class="party">🎉🎉🎉</div>
+  <h1>I LOVE YOU PAAPUUUU ❤️</h1>
+  <p>Forever & always</p>
+</div>
+
+<script>
+  let current = 0;
+  const music = document.getElementById("bgMusic");
+
+  function typeText(el, text) {
+    el.innerHTML = "";
+    let i = 0;
+    const interval = setInterval(() => {
+      el.innerHTML += text.charAt(i);
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, 40);
+  }
+
+  function startTyping() {
+    const msg = document.querySelector(`#screen${current} .message`);
+    typeText(msg, msg.dataset.text);
+  }
+
+  startTyping();
+
+  function nextScreen() {
+    music.play();
+    document.getElementById(`screen${current}`).classList.remove("show");
+    current++;
+    document.getElementById(`screen${current}`).classList.add("show");
+    startTyping();
+  }
+
+  function goValentine() {
+    music.play();
+    document.getElementById("screen4").classList.remove("show");
+    document.getElementById("valentine").classList.add("show");
+  }
+
+  document.getElementById("yesBtn").onclick = () => {
+    document.getElementById("valentine").classList.remove("show");
+    document.getElementById("success").classList.add("show");
+    createHearts();
+  };
+
+  const noBtn = document.getElementById("noBtn");
+  const noMsg = document.getElementById("noMsg");
+
+  noBtn.addEventListener("mouseover", () => {
+    noBtn.style.transform =
+      `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+    noMsg.style.display = "block";
+  });
+
+  function createHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }, 300);
+  }
+
+  console.log("Each nickname = one heartbeat ❤️");
+</script>
+
+</body>
+</html>
